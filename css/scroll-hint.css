@@ -13,16 +13,54 @@
   }
 }
 
-.scroll-hint.is-right-scrollable {
+.scroll-hint {
+  position: relative;
+}
+
+.scroll-hint::after {
+  content: "";
+  width: 20px;
+  height: 100%;
   background: linear-gradient(270deg, rgba(0, 0, 0, .15) 0, rgba(0, 0, 0, 0) 16px, rgba(0, 0, 0, 0));
+  position: absolute;
+  top: 0;
+  right: 0;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0;
+  visibility: hidden;
 }
 
-.scroll-hint.is-right-scrollable.is-left-scrollable {
-  background: linear-gradient(90deg, rgba(0, 0, 0, .15) 0, rgba(0, 0, 0, 0) 16px, rgba(0, 0, 0, 0)), linear-gradient(270deg, rgba(0, 0, 0, .15) 0, rgba(0, 0, 0, 0) 16px, rgba(0, 0, 0, 0));
-}
-
-.scroll-hint.is-left-scrollable {
+.scroll-hint::before {
+  content: "";
+  width: 20px;
+  height: 100%;
   background: linear-gradient(90deg, rgba(0, 0, 0, .15) 0, rgba(0, 0, 0, 0) 16px, rgba(0, 0, 0, 0));
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0;
+  visibility: hidden;
+}
+
+
+
+.scroll-hint.is-right-scrollable::after {
+  opacity: 1;
+  visibility: visible;
+}
+
+.scroll-hint.is-right-scrollable.is-left-scrollable::before,
+.scroll-hint.is-right-scrollable.is-left-scrollable::after {
+  opacity: 1;
+  visibility: visible;
+}
+
+.scroll-hint.is-left-scrollable::before {
+  opacity: 1;
+  visibility: visible;
 }
 
 .scroll-hint-icon {

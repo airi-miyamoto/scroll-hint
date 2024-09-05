@@ -13,6 +13,7 @@ declare module 'scroll-hint' {
     scrollHintIconClass?: string,
     scrollHintIconAppendClass?: string,
     scrollHintIconWrapClass?: string,
+    scrollHintIconWrapClass?: string,
     scrollHintText?: string,
     scrollHintBorderWidth?: number,
     remainingTime?: string,

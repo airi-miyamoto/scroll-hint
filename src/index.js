@@ -11,6 +11,7 @@ const defaults = {
   scrollHintIconAppendClass: '', // 'scroll-hint-icon-white'
   scrollHintIconWrapClass: 'scroll-hint-icon-wrap',
   scrollHintText: 'scroll-hint-text',
+  scrollHintShadowWrapClass: 'scroll-hint-shadow-wrap',
   scrollHintBorderWidth: 10,
   remainingTime: -1,
   enableOverflowScrolling: true,
@@ -79,19 +80,32 @@ export default class ScrollHint {
   checkScrollableDir(item) {
     const { scrollHintBorderWidth, scrollableRightClass, scrollableLeftClass } = this.opt;
     const { element } = item;
+    const shadowWrap = element.parentElement;
     const child = element.children[0];
     const width = child.scrollWidth;
     const parentWidth = element.offsetWidth;
     const scrollLeft = element.scrollLeft;
     if (parentWidth + scrollLeft < width - scrollHintBorderWidth) {
       addClass(element, scrollableRightClass);
+      if (shadowWrap) {
+        addClass(shadowWrap, scrollableRightClass);
+      }
     } else {
       removeClass(element, scrollableRightClass);
+      if (shadowWrap) {
+        removeClass(shadowWrap, scrollableRightClass);
+      }
     }
     if (parentWidth < width && scrollLeft > scrollHintBorderWidth) {
       addClass(element, scrollableLeftClass);
+      if (shadowWrap) {
+        addClass(shadowWrap, scrollableLeftClass);
+      }
     } else {
       removeClass(element, scrollableLeftClass);
+      if (shadowWrap) {
+        removeClass(shadowWrap, scrollableLeftClass);
+      }
     }
   }
 
@@ -127,11 +141,18 @@ export default class ScrollHint {
     const { opt } = this;
     const { element } = item;
     const target = element.querySelector('[data-target="scrollable-icon"]');
+    const shadowWrap = opt.suggestiveShadow ? element.parentElement : null;
     this.updateStatus(item);
     if (this.isScrollable(item)) {
       addClass(element, opt.scrollableClass);
+      if (shadowWrap) {
+        addClass(shadowWrap, opt.scrollableClass);
+      }
     } else {
       removeClass(element, opt.scrollableClass);
+      if (shadowWrap) {
+        removeClass(shadowWrap, opt.scrollableClass);
+      }
     }
     if (this.needSuggest(item)) {
       addClass(target, opt.suggestClass);
